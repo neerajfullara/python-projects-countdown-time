@@ -75,7 +75,7 @@ def countdown():
         root.update()
 
         if(times == 0):
-            playsound('Loud_Alarm_Clock_Buzzer.mp3')
+            playsound('C:/Users/neera/Desktop/python-projects/countdown-timer/resources/alarm.mp3')
             done = True
             sec.set('00')
             mins.set('00')
