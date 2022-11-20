@@ -29,6 +29,7 @@ root.geometry('550x400')
 root.resizable(0,0)
 root.config(bg ='CadetBlue3')
 root.title('CountDown Timer')
+root.iconbitmap('C:/Users/neera/Desktop/python-projects/countdown-timer/resources/logo.ico')
 Label(root, text = 'Countdown Timer' , font = 'arial 30 bold',  bg ='CadetBlue3').pack()
 vcmd = (root.register(validate), '%P')
 
