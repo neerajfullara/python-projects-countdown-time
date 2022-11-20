@@ -27,24 +27,24 @@ def validate(P):
 root = Tk()
 root.geometry('550x400')
 root.resizable(0,0)
-root.config(bg ='blanched almond')
+root.config(bg ='CadetBlue3')
 root.title('CountDown Timer')
-Label(root, text = 'Countdown Timer' , font = 'arial 30 bold',  bg ='papaya whip').pack()
+Label(root, text = 'Countdown Timer' , font = 'arial 30 bold',  bg ='CadetBlue3').pack()
 vcmd = (root.register(validate), '%P')
 
 #storing seconds
 sec = StringVar()
-Entry(root, textvariable = sec, width = 2, font = 'arial 15', validate="key").place(x=358, y=110)
+Entry(root, textvariable = sec, width = 2, font = 'arial 15',bg='AntiqueWhite2', validate="key").place(x=358, y=110)
 sec.set('00')
 
 #storing minutes
 mins= StringVar()
-Entry(root, textvariable = mins, width = 2, font = 'arial 15',validate="key").place(x=329, y=110)
+Entry(root, textvariable = mins, width = 2, font = 'arial 15',bg='AntiqueWhite2',validate="key").place(x=329, y=110)
 mins.set('00')
 
 # storing hours
 hrs= StringVar()
-Entry(root, textvariable = hrs, width = 2, font = 'arial 15', validate="key").place(x=300, y=110)
+Entry(root, textvariable = hrs, width = 2, font = 'arial 15',bg='AntiqueWhite2', validate="key").place(x=300, y=110)
 hrs.set('00')
 
 def countdown():
@@ -116,16 +116,16 @@ def resume():
         countdown()
 
 # Label for the Timer
-Label(root, font ='arial 22 bold', text = 'Set Timer -',   bg ='papaya whip').place(x = 135 ,y = 100)
+Label(root, font ='arial 22 bold', text = 'Set Timer -',   bg ='CadetBlue3').place(x = 135 ,y = 100)
 
 # Buttons
 # START
-Button(root, text='START', bd ='5', command = countdown, bg = 'antique white', font = 'arial 25 bold').place(x=100, y=170)
+Button(root, text='START', bd ='5', command = countdown, bg = 'CadetBlue4', font = 'arial 25 bold').place(x=100, y=170)
 # RESET
-button_reset = Button(root, text='RESET', bd ='5', command = reset, bg = 'antique white', font = 'arial 25 bold').place(x=300, y=170)
+button_reset = Button(root, text='RESET', bd ='5', command = reset, bg = 'CadetBlue4', font = 'arial 25 bold').place(x=300, y=170)
 # PAUSE
-button_pause = Button(root, text='PAUSE', bd ='5', command = pause, bg = 'antique white', font = 'arial 25 bold').place(x=100, y=270)
+button_pause = Button(root, text='PAUSE', bd ='5', command = pause, bg = 'CadetBlue4', font = 'arial 25 bold').place(x=100, y=270)
 # RESUME
-button_pause = Button(root, text='RESUME', bd ='5', command = resume, bg = 'antique white', font = 'arial 24 bold').place(x=290, y=270)
+button_pause = Button(root, text='RESUME', bd ='5', command = resume, bg = 'CadetBlue4', font = 'arial 24 bold').place(x=290, y=270)
 
 root.mainloop()
