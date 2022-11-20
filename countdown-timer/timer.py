@@ -1,120 +1,131 @@
-import tkinter
+##import library
 from tkinter import *
-import  datetime
-import winsound
+import time
+from playsound import playsound
 
-class countDown(tkinter.Frame):
-    def __init__(self,master):
-        super().__init__(master)
-        self.widget_create()
-        self.show_Widgets()
-        self.seconds_Left=0
-        self.time_On=False
+#######################timer countdown##########
 
-    def show_Widgets(self):
-        self.label.pack()
-        self.entry.pack()
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
-        self.pause.pack()
-        self.resume.pack()
+##########fun to start countdown
+paused = False
+running = False
+def validate(P):
+    global paused
+    if len(P) == 0 and not paused:
+        # empty Entry is ok
+        return True
+    elif len(P) == 1 and P.isdigit() and not paused:
+        # Entry with 1 digit is ok
+        return True
+    elif len(P) == 2 and P.isdigit() and not paused:
+        # Entry with 1 digit is ok
+        return True
+    else:
+        # Anything else, reject it
+        return False
 
-    def widget_create(self):
-        self.label = tkinter.Label(self,text='Enter the time')
-        self.entry = tkinter.Entry(self,justify="center")
-        self.entry.focus_set()
-        self.reset = tkinter.Button(self,text="Reset",command=self.reset_button)
-        self.start = tkinter.Button(self,text="Start",command=self.start_button)
-        self.stop = tkinter.Button(self,text="Stop",command=self.stop_button)
-        self.pause = tkinter.Button(self,text="Pause",command=self.pause_button)
-        self.resume = tkinter.Button(self,text="Resume",command=self.resume_button)
+## display window 
+root = Tk()
+root.geometry('550x400')
+root.resizable(0,0)
+root.config(bg ='blanched almond')
+root.title('CountDown Timer')
+Label(root, text = 'Countdown Timer' , font = 'arial 30 bold',  bg ='papaya whip').pack()
+vcmd = (root.register(validate), '%P')
 
-    def CountD(self):
-        self.label["text"] = self.convert_seconds_left_time()
+#storing seconds
+sec = StringVar()
+Entry(root, textvariable = sec, width = 2, font = 'arial 15', validate="key").place(x=358, y=110)
+sec.set('00')
 
-        if self.seconds_Left:
-            self.seconds_Left -= 1
-            self.time_On = self.after(1000,self.CountD)
-        else:
-            self.time_On = False
-            winsound.PlaySound('C:/Users/neera/Desktop/python-projects/countdown-timer/resources/alarm.mp3', winsound.SND_FILENAME)
+#storing minutes
+mins= StringVar()
+Entry(root, textvariable = mins, width = 2, font = 'arial 15',validate="key").place(x=329, y=110)
+mins.set('00')
 
-    def reset_button(self):
-        self._second_left = 0
-        self.stop_timer()
-        self.time_On = FALSE
-        self.label["text"] = "Enter the time in seconds."
-        self.start.forget()
-        self.stop.forget()
-        self.reset.forget()
-        self.pause.forget()
-        self.reset.forget()
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
-        self.pause.pack()
-        self.reset.pack()
+# storing hours
+hrs= StringVar()
+Entry(root, textvariable = hrs, width = 2, font = 'arial 15', validate="key").place(x=300, y=110)
+hrs.set('00')
 
-    def stop_button(self):
-        self.seconds_Left = int(self.entry.get())
-        self.stop_timer()
+def countdown():
+    global paused
+    global done
+    global running
+    running = True
+    paused = False
+    hours=int(hrs.get())
+    minutes=int(mins.get())
+    secs=int(sec.get())
+    if (secs==0 and minutes==0 and hours==0):
+        return
+    done = False
+    times = int(hrs.get())*3600+ int(mins.get())*60 + int(sec.get())
+    while times > -1 and not done and not paused:
+        minute,second = (times // 60 , times % 60)
+        
+        hour = 0
+        if minute > 60:
+            hour , minute = (minute // 60 , minute % 60)
+            
+        time.sleep(1)
+        sec.set(second)
+        mins.set(minute)
+        hrs.set(hour)
+        root.update()
 
-    def start_button(self):
-        self.seconds_Left = int(self.entry.get())
-        self.stop_timer()
-        self.CountD()
-        self.start.forget()
-        self.stop.forget()
-        self.pause.forget()
-        self.reset.forget()
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
-        self.pause.pack()
-        self.reset.pack()
+        if(times == 0):
+            playsound('Loud_Alarm_Clock_Buzzer.mp3')
+            done = True
+            sec.set('00')
+            mins.set('00')
+            hrs.set('00')
+            running = False
+        times -= 1
 
-    def pause_button(self):
-        self.seconds_Left = int(self.entry.get())
-        self.pause_timer()
+# For Reset Button
+def reset():
+    global done
+    global running
+    running = False
+    done=True
+    hrs.set('00')
+    mins.set('00')
+    sec.set('00')
 
-# Work on the Resume button part
-    def resume_button(self):
-        self.seconds_Left = int(self.entry.get())
-        self.stop_timer()
-        self.CountD()
-        self.start.forget()
-        self.stop.forget()
-        self.pause.forget()
-        self.reset.forget()
-        self.start.pack()
-        self.stop.pack()
-        self.reset.pack()
-        self.pause.pack()
-        self.reset.pack()
+def update(hour,minute,second):
+    # actions to perform
+    sec.set(second)
+    mins.set(minute)
+    hrs.set(hour)
+    root.after(10, update) #iterative
 
-    def stop_timer(self):
-        if self.time_On:
-            self.after_cancel(self.time_On)
-            self.time_On = False
+# For Pause Button
+def pause():
+    global paused
+    global running
+    if not paused and running:
+        paused=True
+        root.update()
 
-    def pause_timer(self):
-        if self.time_On:
-            self.after_cancel(self.time_On)
-            self.time_On = False
+# For Resume Button
+def resume():
+    global paused
+    global running
+    if paused and running:
+        paused = False
+        countdown()
 
-    def convert_seconds_left_time(self):
-        return datetime.timedelta(seconds = self.seconds_Left)
+# Label for the Timer
+Label(root, font ='arial 22 bold', text = 'Set Timer -',   bg ='papaya whip').place(x = 135 ,y = 100)
 
-# Main
-if __name__ == "__main__":
-    root = tkinter.Tk()
-    root.title('CountDown Timer')
-    root.iconbitmap('C:/Users/neera/Desktop/python-projects/countdown-timer/resources/logo.ico')
-    root.geometry("500x300")
-    root.resizable(False,False)
+# Buttons
+# START
+Button(root, text='START', bd ='5', command = countdown, bg = 'antique white', font = 'arial 25 bold').place(x=100, y=170)
+# RESET
+button_reset = Button(root, text='RESET', bd ='5', command = reset, bg = 'antique white', font = 'arial 25 bold').place(x=300, y=170)
+# PAUSE
+button_pause = Button(root, text='PAUSE', bd ='5', command = pause, bg = 'antique white', font = 'arial 25 bold').place(x=100, y=270)
+# RESUME
+button_pause = Button(root, text='RESUME', bd ='5', command = resume, bg = 'antique white', font = 'arial 24 bold').place(x=290, y=270)
 
-    countdown = countDown(root)
-    countdown.pack()
-
-    root.mainloop()
+root.mainloop()
