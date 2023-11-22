@@ -29,7 +29,7 @@ root.geometry('550x400')
 root.resizable(0,0)
 root.config(bg ='CadetBlue3')
 root.title('CountDown Timer')
-root.iconbitmap('C:/Users/neera/Desktop/python-projects/countdown-timer/resources/logo.ico')
+root.iconbitmap('C:/Users/fulla/Desktop/Codes/Python/python-projects-countdown-time/countdown-timer/resources/logo.ico')
 Label(root, text = 'Countdown Timer' , font = 'arial 30 bold',  bg ='CadetBlue3').pack()
 vcmd = (root.register(validate), '%P')
 
@@ -75,7 +75,7 @@ def countdown():
         root.update()
 
         if(times == 0):
-            playsound('C:/Users/neera/Desktop/python-projects/countdown-timer/resources/alarm.mp3')
+            playsound("countdown-timer/resources/alarm.mp3")
             done = True
             sec.set('00')
             mins.set('00')
