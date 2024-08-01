@@ -4,15 +4,20 @@ The Countdown Timer is a simple yet effective Python application that allows use
 
 ## Features
 **User-Friendly Interface:** The application features an intuitive and easy-to-use GUI built with Tkinter, making it accessible for users of all levels.
+
 **Custom Timer Settings:** Users can set the timer to any desired duration in hours, minutes, and seconds.
+
 **Audible Notification:** When the timer reaches zero, a sound is played to alert the user.
+
 **Pause and Reset Functionality:** The timer can be paused and reset, providing flexibility for the user.
 
 ## Requirements
 To run this project, you need the following libraries:
 
 **tkinter**: For creating the graphical user interface.
+
 **time**: For handling the timer's countdown logic.
+
 **playsound**: For playing the notification sound when the timer ends.
      pip install playsound
 
