@@ -19,11 +19,13 @@ To run this project, you need the following libraries:
 **time**: For handling the timer's countdown logic.
 
 **playsound**: For playing the notification sound when the timer ends.
+
      pip install playsound
 
 ## Installation
 **Clone the Repository:**
 git clone https://github.com/neerajfullara/python-projects-countdown-time.git
+
 cd countdown-timer
 
 ## Usage
